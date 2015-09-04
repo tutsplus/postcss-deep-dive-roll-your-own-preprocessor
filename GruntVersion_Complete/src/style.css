@@ -1,0 +1,107 @@
+@import "_vars";
+
+@define-mixin icon $network, $color {
+		.button.$(network) {
+		background-image: url('img/$(network).png');
+		background-color: $color;
+	}
+}
+
+@mixin icon twitter, blue;
+
+@for $i from 1 to 3 {
+		p:nth-of-type($i) {
+		margin-left: calc( 100% / $i );
+	}
+}
+
+.post {
+	padding: $default_padding;
+}
+
+:root {
+	--h1_font_size: 3rem;
+}
+
+h1 {
+	font-size: var(--h1_font_size);
+}
+
+@media ( max-width: 75rem ){
+	h1 {
+		--h1_font_size: 4vw;
+	}
+}
+
+@each $icon in ($social){
+	.icon-$(icon) {
+		background: url('img/$(icon).png');
+	}
+}
+
+$column_count: 3;
+
+.column {
+	@if $column_count == 3 {
+		width: 33%;
+		float: left;
+	} @else if $column_count == 2 {
+		width: 50%;
+		float: left;
+	}	@else {
+		width: 100%;
+	}
+}
+
+@define-mixin columns $count {
+	@if $count == 3 {
+		width: 33%;
+		float: left;
+	} @else if $count == 2 {
+		width: 50%;
+		float: left;
+	}	@else {
+		width: 100%;
+	}
+}
+
+.another_column {
+	@mixin columns 2;
+}
+
+@define-mixin columns_calc $count {
+	width: calc( 100% / $count );
+	@if $count > 1 {
+		float: left;
+	}
+}
+
+.column_calculated {
+	@mixin columns_calc 2;
+}
+
+.menu {
+	width: 100%;
+	a {
+		text-decoration: none;
+	}
+}
+
+%rounded_button {
+	border-radius: 0.5rem;
+	padding: 1em;
+	border-width: 0.0625rem;
+	border-style: solid;
+}
+
+.blue_button {
+	@extend %rounded_button;
+	border-color: #2F74D1;
+	background-color: #3B8EFF;
+}
+
+.red_button {
+	@extend %rounded_button;
+	border-color: #C41A1E;
+	background-color: #FF2025;
+}
